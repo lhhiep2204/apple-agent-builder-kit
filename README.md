@@ -38,7 +38,7 @@ When using `/generate-workflow-agents`, the kit produces agents covering the ful
 | Test Specialist | Unit tests (Swift Testing) + UI tests (XCTest), protocol-driven mocks, full coverage |
 | Technical Reviewer | Deep context review (dependency graph, not just diffs), severity-driven verdicts |
 | Functional Reviewer | Acceptance criteria, domain rules, edge cases; short-circuit on blockers |
-| Dev Orchestrator | Auto-routes user intent to sub-agents, confirmation checkpoint, completion reports |
+| Dev Orchestrator | Auto-routes user intent to sub-agents, confirmation checkpoint, completion reports, non-blocking clarification (options + recommended default + provisional continuation) |
 
 Default collaboration: `Business Analyst → Investigator → Implementor → Test Specialist → Reviewers`
 Default iteration: `Implementor → Test Specialist → Reviewers → back to Implementor until review passes`
@@ -63,7 +63,7 @@ Templates in `.github/templates/agent-builder/` are wired directly into each sub
 - Analyzer uses `apple-codebase-analysis-template.md` for structured output
 - Generator uses scaffold templates (`agent/skill/instruction/prompt-template.md`, `workflow-asset-template.md`), `apple-role-catalog.md`, `primitive-decision-matrix.md`, `hook-checklist.md`
 - Documentation refresh uses `copilot-doc-source-registry.md` (authoritative source registry) and `kit-doc-refresh.md` (persistent refresh snapshot)
-- Auditor uses `agent-audit-rubric.md` (6 dimensions: discovery, architecture fit, execution quality, Apple specificity, scope discipline, ecosystem coherence)
+- Auditor uses `agent-audit-rubric.md` (7 dimensions: discovery, architecture fit, execution quality, Apple specificity, scope discipline, ecosystem coherence, context efficiency)
 
 ## Repo Structure
 
@@ -94,7 +94,7 @@ Templates in `.github/templates/agent-builder/` are wired directly into each sub
       copilot-doc-refresh-brief-template.md ← refresh brief format
       copilot-doc-source-registry.md    ← URL registry for official Copilot docs
       kit-doc-refresh.md                ← last documentation refresh (kit-internal)
-      agent-audit-rubric.md             ← audit checklist (6 dimensions)
+      agent-audit-rubric.md             ← audit checklist (7 dimensions)
       primitive-decision-matrix.md      ← primitive selection decision aid
       apple-role-catalog.md             ← role naming reference
       hook-checklist.md                 ← hook decision checklist
@@ -181,6 +181,7 @@ The kit reads the target agent and all associated files, compares against the au
 - **Technology alignment**: Use project's actual stack (not kit defaults) when generating agents
 - **Simulator destination**: Derive from project's deployment target + Xcode version, never hardcode device model
 - **Lint validation**: When linter is configured, verify with `--strict` flag to catch warnings, not just errors
+- **Tool surface default**: Generated agents should not declare frontmatter `tools` or `mcp-servers` unless explicitly requested
 - Comprehensive artifact set by default — include every artifact that materially improves execution quality
 - Official-doc refresh before generation — fetch current sources, repair broken links
 - Linting tools best handled via instructions and agent validation steps; hooks only when justified

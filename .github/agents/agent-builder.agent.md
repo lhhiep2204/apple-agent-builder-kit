@@ -66,6 +66,10 @@ All flows use the same user-facing phases defined in SKILL.md:
 
 Internal setup (reading skill files, loading templates) stays inside these phases, not as extra top-level steps. Phase 4 auto-skips when analysis provides enough confidence.
 
+When Phase 4 is required, prefer non-blocking clarification: ask with options, provide a recommended default, and continue on a provisional path when risk is low.
+
+During generation, keep tool access broad by default: generated agents should not declare frontmatter `tools` or `mcp-servers` unless the user explicitly requests constrained tool access.
+
 ### Documentation Refresh
 Before generation or extension: use `Apple Copilot Docs Refresher` to fetch every URL in the Mandatory Source Set from `.github/templates/agent-builder/copilot-doc-source-registry.md`. Repair broken URLs. Produce an in-session refresh brief using the brief template. Do not persist the brief as a file. When maintaining the kit, update `kit-doc-refresh.md`.
 

@@ -33,11 +33,16 @@ Fail when any critical defect exists:
 - Full kit missing required supporting artifacts without credible justification
 - Behavioral patterns missing for the role — see SKILL.md artifact requirements for the complete checklist per role (implementor verify-fix loop, reviewer deep context, investigator impact matrix, orchestrator auto-routing, etc.)
 - Collaboration lanes undefined for main use cases: hand-off order unclear, contracts missing, iteration loops absent
+- Orchestrator clarification behavior stops after asking questions, without choice options and a continuation path
 - Roles overlap heavily without adding quality
 - Apple assumptions vague or inconsistent
 - Generated agents assume kit fallback defaults (e.g., Swift 6, strict concurrency, SwiftUI-first) when the project's actual technology profile differs
 - Instructions too broad, wasting context
 - Validation guidance generic when repo-grounded commands exist
+- Generated agents declare `tools` or `mcp-servers` without explicit user request and rationale
+- Agent frontmatter has YAML diagnostics or unresolved schema warnings in editor
+- `agents` frontmatter references filenames (e.g., `*.agent.md`) instead of exact available agent names
+- Generated non-template files contain unresolved placeholders like `<...>`
 - Build/test commands use hardcoded simulator device names instead of project-derived destinations
 - Verify-fix loop missing lint step when linter is configured, or lint warnings not treated as failures (must use `--strict` or equivalent)
 - Test strategy defaults to full-suite for routine changes, or lacks an explicit targeted-test-first policy with clear full-suite escalation criteria
@@ -55,7 +60,7 @@ Descriptions concrete, keyword-rich, role-specific? Users naturally phrase reque
 Conductor/specialist split justified? Primitive mix comprehensive and coherent? Apple role families add value?
 
 ### 3. Execution Quality
-Constraints explicit? Output contracts clear? Workflow says when to ask, act, validate, revise? Documentation refresh applied? Supporting artifacts present and effective? Behavioral patterns role-appropriate per SKILL.md? Collaboration lanes defined with hand-offs and iteration loops? Repo-grounded validation commands cited when available? Orchestrator defines micro-change handling, skip rules, and reviewer conflict resolution?
+Constraints explicit? Output contracts clear? Workflow says when to ask, act, validate, revise? Documentation refresh applied? Supporting artifacts present and effective? Behavioral patterns role-appropriate per SKILL.md? Collaboration lanes defined with hand-offs and iteration loops? Repo-grounded validation commands cited when available? Orchestrator defines micro-change handling, skip rules, reviewer conflict resolution, and non-blocking clarification with options plus continuation defaults?
 
 ### 4. Apple Specificity And Technology Alignment
 Platforms, frameworks, concurrency, testing, accessibility, localization explicit? Generated agents aligned to the project's actual technology profile from the analyzer (not kit fallback defaults)? If the project uses an older Swift version, less strict concurrency, or UIKit-primary architecture, do the generated agents reflect that accurately instead of assuming latest defaults?
@@ -65,6 +70,9 @@ Files single-purpose? `applyTo` narrow? Bundle can evolve without drift?
 
 ### 6. Ecosystem Coherence
 New agents integrate with existing? Naming consistent? Overlap resolved? Dirty worktree handled safely?
+
+### 7. Context Efficiency
+Do outputs stay phase-bounded and concise? Are hand-offs summarized as deltas with file references instead of repeated full-context prose? Are static rules centralized in instructions/skills rather than duplicated across every artifact?
 
 ## Verdict Policy
 

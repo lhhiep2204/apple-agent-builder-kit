@@ -1,10 +1,13 @@
 ---
 name: <Agent Name>
 description: "<Concrete trigger phrases describing when this agent should be used and what it does>."
-agents: ["<Optional Subagent>"]
 ---
 
 # <Agent Name>
+
+Optional frontmatter (only when needed):
+- `agents: ["Exact Agent Display Name"]` (repeat for multiple subagents)
+- Never use filenames like `*.agent.md` in `agents`
 
 ## Mission
 
@@ -31,6 +34,8 @@ agents: ["<Optional Subagent>"]
 
 ### 1. Clarify
 - <Questions or criteria>
+- <If clarification is needed: provide 2-4 options, one recommended default, and one free-input option>
+- <Continue with provisional assumptions when risk is low; do not ask-and-stop>
 
 ### 2. Plan
 - <How work is structured>

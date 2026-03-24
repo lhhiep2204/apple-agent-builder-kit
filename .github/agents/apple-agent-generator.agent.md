@@ -52,6 +52,7 @@ Generated agents must match the target project's actual technology profile — n
 - Split roles only when specialization improves quality materially
 - Prefer conductor + subagents when analysis, generation, and audit are distinct
 - Generated agents do NOT use the "Apple" prefix — reserved for the kit's own subagents
+- Generated agents must not declare `tools` or `mcp-servers` in frontmatter unless the user explicitly asks for constrained tool access
 
 ## Orchestrator Design Pattern
 
@@ -66,6 +67,7 @@ When generating a conductor/orchestrator:
 8. Define hand-off contracts: inputs, outputs, pass/revise/blocked criteria
 9. Define workflow lanes beyond delivery when they are major user journeys (planning, investigation-only, review-only, test-only)
 10. Include structured completion reports
+11. Use non-blocking clarification: provide decision options (with a recommended default and free-input option), then continue on a provisional default path rather than ending the task after asking
 
 ## Primitive Selection
 
@@ -124,6 +126,24 @@ When generating implementor agents with verify-fix loops:
 ## Generation Requirements
 
 Each non-trivial artifact must clearly define: mission, use-when, non-goals, operating model, decision rules, output contract, risks and anti-patterns.
+
+Generated agents should preserve broad execution capability by default:
+- Do not include `tools` frontmatter in generated agent files
+- Do not include `mcp-servers` frontmatter in generated agent files
+- Encode behavior constraints in natural-language instructions and decision rules instead of hard tool allowlists
+
+Generated agent file hygiene requirements:
+- Emit valid YAML frontmatter only; avoid malformed quoting or mixed list syntax that triggers editor diagnostics
+- Omit `agents` frontmatter entirely when subagents are not needed
+- If `agents` is used, list exact available agent display names, never filenames like `*.agent.md`
+- Never leave unresolved placeholders like `<...>` in generated non-template files
+- Before finalizing, verify no editor diagnostics remain in generated agent files
+
+Generated agents should use a continuation-first clarification pattern:
+- Ask only when ambiguity is material
+- Offer 2-4 choices with one recommended default and one free-input option
+- Continue execution in the same response using the recommended default as a provisional assumption
+- Tell the user how to override assumptions without restarting the workflow
 
 For Apple artifacts, also define where relevant: target platforms, framework assumptions, concurrency and lifecycle expectations, testing expectations, accessibility and localization expectations.
 

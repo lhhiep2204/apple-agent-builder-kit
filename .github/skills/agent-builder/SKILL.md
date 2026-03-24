@@ -34,6 +34,7 @@ iOS, iPadOS, macOS, visionOS, watchOS, and tvOS.
 - Multi-agent architecture when quality depends on distinct phases
 - Hard audit gate for non-trivial bundles
 - Refresh official Copilot documentation before any generation flow
+- Generated agents must not declare `tools` or `mcp-servers` in frontmatter by default; leave tool surface unmanaged unless the user explicitly requests constraints
 - Align generated agents to the project's actual technology profile — never assume latest defaults when the codebase shows otherwise
 - When invoked directly: confidence ≥ 95% before generation
 - When invoked via prompt: skip confidence interview, analyze directly
@@ -65,6 +66,11 @@ Before analysis or generation:
 ### 1. Clarify the Outcome
 
 Collect only facts that materially change architecture: target users, tasks, inputs/outputs, domain, autonomy level, tool restrictions, quality bar, Apple platforms, framework constraints, delivery roles.
+
+Clarification protocol for generated agents:
+- Prefer non-blocking clarification. If ambiguity is low-risk, continue with explicit assumptions instead of stopping.
+- If user input is needed, ask in a structured choice block: 2-4 options, one recommended default, plus an "Other" free-input option.
+- After asking, continue with the recommended default path in the same response and mark it as provisional so the user can override without restarting the workflow.
 
 ### 2. Model the Workflow
 
@@ -155,6 +161,7 @@ Full specification and minimums table in `apple-quality-auditor.agent.md`.
 - **Reviewer**: deep context gathering (full file content + dependency graph + callers, not just diffs), short-circuit on functional blockers before running technical review, severity-driven verdicts with actionable code-level findings
 - **Investigator**: structured as-is/to-be analysis with file and line references, to-be change table (component, change type, file, business reason), impact matrix with severity levels, scenario mapping
 - **Orchestrator**: intent-based auto-routing to sub-agents so users never manually pick agents, mandatory confirmation checkpoint between investigation and implementation, structured completion report, micro-change lane for low-risk edits, reviewer conflict resolution, inter-agent iteration loops (implement → test → review → back to implement until review passes)
+- **Orchestrator clarification behavior**: never end the workflow after a clarification prompt alone; provide a decision menu, recommended default, and continue execution on a provisional track until user override
 
 ### Skill
 - Repeatable workflow with decision criteria and validation checks

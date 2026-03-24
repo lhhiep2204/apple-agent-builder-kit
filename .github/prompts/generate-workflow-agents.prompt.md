@@ -49,6 +49,8 @@ Optionally: project-specific codebase analyzer for large/unfamiliar repos.
 7. **Revise** — If `REVISE`, fix every finding and re-audit. Do not accept or skip minor findings. Repeat until `PASS` with zero open issues.
 8. **Deliver** — Complete bundle with architecture rationale, documentation sources, and residual risks (only genuine uncertainties, not fixable weaknesses).
 
+Final quality expectation: zero open findings (including minor) and zero editor diagnostics in generated agent files before completion.
+
 ## Constraints
 
 - Every agent must reference real project conventions, not generic boilerplate
@@ -57,6 +59,8 @@ Optionally: project-specific codebase analyzer for large/unfamiliar repos.
 - Full workflow kit includes supporting skills, instructions, prompts, templates per SKILL.md bundle shapes
 - Bidirectional cross-references between agents and skills; delete intermediate files before finalizing
 - Orchestrator defines: business analysis → investigate → implement → test → review sequence
+- Orchestrator clarification is non-blocking: offer options with a recommended default and continue provisionally
 - Separate technical and functional reviewers
 - For established projects: preserve working behavior while fixing weak areas
 - Skip full 95% confidence interview — rely on analysis first
+- Generated agents do not declare frontmatter `tools` or `mcp-servers` unless explicitly requested

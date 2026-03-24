@@ -55,6 +55,7 @@
 
 - The kit should continue to require explicit documentation refresh before generation or major rule updates
 - Generated workflow kits should prefer repo-grounded instructions, prompts, validation guidance, and templates over generic prose because current docs reinforce scoped tasks and concrete validation
+- For portability across environments, generated agents should avoid frontmatter `tools` and `mcp-servers` by default and encode behavior constraints in instructions unless the user explicitly asks for constrained tool access
 - Hook generation must stay conditional and justified; a no-hook rationale is better than speculative hook output when deterministic commands are not available
 - The auditor and quick rubric should both check for concrete validation guidance and orchestrator guardrails so lightweight audits do not miss hard requirements
 

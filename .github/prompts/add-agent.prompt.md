@@ -28,7 +28,7 @@ Phase 4 auto-skips when analysis provides enough context.
 
 ## Create Flow
 
-Describe the agent you want to add below. Include: workflow or role, target users, key tasks, tool restrictions or autonomy constraints.
+Describe the agent you want to add below. Include: workflow or role, target users, key tasks, and autonomy constraints.
 
 ### Execution Steps
 
@@ -39,6 +39,8 @@ Describe the agent you want to add below. Include: workflow or role, target user
 5. **Generate** — Create new agent with: no role overlap, consistent naming, project-derived prefix, real conventions, supporting files (skill, instruction, prompt, template) when needed.
 6. **Audit** — All dimensions + ecosystem coherence. If `REVISE`, fix until `PASS`.
 7. **Deliver** — Assessment, agent file(s), integration guide, changes needed to existing agents.
+
+Final quality expectation: zero open findings (including minor) and zero editor diagnostics in generated or updated agent files before completion.
 
 If the repository has unrelated changes, preserve them and continue unless there is a direct file-path conflict.
 
